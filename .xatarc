@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://paulthomas2107-s-workspace-golan8.eu-west-1.xata.sh/db/demo-job",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
