@@ -6,8 +6,9 @@ dotenv.config()
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
-
 const xata = getXataClient();
+
+app.use(express.json())
 
 app.get('/api/jobs', async (req: Request, res: Response) => {
   const jobs = await xata.db.job.getAll();
@@ -15,15 +16,22 @@ app.get('/api/jobs', async (req: Request, res: Response) => {
 });
 
 app.post('/api/jobs', async (req: Request, res: Response) => {
-  res.json({ msg: "Hi Paul, it's post jobs..." });
+  const job = req.body
+  const createdJob = await xata.db.job.create(job)
+  res.json(createdJob);
 });
 
 app.put('/api/jobs/:id',async (req: Request, res: Response) => {
-    res.json({ msg: "Hi Paul, it's put jobs..." });
+  const job = req.body
+  const id = req.params.id
+  const updatedJob = await xata.db.job.update(id, job)
+    res.json(updatedJob);
   });
 
   app.delete('/api/jobs/:id',async (req: Request, res: Response) => {
-    res.json({ msg: "Hi Paul, it's delete jobs..." });
+    const id = req.params.id
+    const deletedRec = await xata.db.job.delete(id)
+    res.json(deletedRec);
   });
 
 app.listen(port, () => {
