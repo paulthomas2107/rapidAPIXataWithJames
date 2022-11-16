@@ -1,22 +1,28 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import { getXataClient, Job } from './xata';
+
+dotenv.config()
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
-app.get('/api/jobs', (req: Request, res: Response) => {
-  res.json({ msg: "Hi Paul, it's get jobs..." });
+const xata = getXataClient();
+
+app.get('/api/jobs', async (req: Request, res: Response) => {
+  const jobs = await xata.db.job.getAll();
+  res.json(jobs)
 });
 
-app.post('/api/jobs', (req: Request, res: Response) => {
+app.post('/api/jobs', async (req: Request, res: Response) => {
   res.json({ msg: "Hi Paul, it's post jobs..." });
 });
 
-app.put('/api/jobs/:id', (req: Request, res: Response) => {
+app.put('/api/jobs/:id',async (req: Request, res: Response) => {
     res.json({ msg: "Hi Paul, it's put jobs..." });
   });
 
-  app.delete('/api/jobs/:id', (req: Request, res: Response) => {
+  app.delete('/api/jobs/:id',async (req: Request, res: Response) => {
     res.json({ msg: "Hi Paul, it's delete jobs..." });
   });
 

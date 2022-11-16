@@ -8,7 +8,7 @@ import {
 
 const tables = [
   {
-    name: "jobs",
+    name: "job",
     columns: [
       { name: "company", type: "string" },
       { name: "title", type: "string" },
@@ -21,11 +21,11 @@ const tables = [
 export type SchemaTables = typeof tables;
 export type InferredTypes = SchemaInference<SchemaTables>;
 
-export type Jobs = InferredTypes["jobs"];
-export type JobsRecord = Jobs & XataRecord;
+export type Job = InferredTypes["job"];
+export type JobRecord = Job & XataRecord;
 
 export type DatabaseSchema = {
-  jobs: JobsRecord;
+  job: JobRecord;
 };
 
 const DatabaseClient = buildClient();
